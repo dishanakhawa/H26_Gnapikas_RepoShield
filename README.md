@@ -114,6 +114,28 @@ Contributions, bug reports, and practical suggestions are welcome.
 5. Open a pull request describing the change.
 ⚠️ Limitations
 RepoMedic AI's analysis depends on the files it collects and the quality of the model response. It may miss issues, misinterpret code, or recommend changes that are not appropriate for a particular project. Always validate recommendations before applying them.
+
+
+## Open-Source Technologies and Licenses
+
+| Technology / Library | Purpose | License |
+
+| Python | Core programming language | PSF License |
+
+| Gemma 3:4b | AI-powered repository analysis | Gemma Terms of Use |
+
+| Jinja2 | HTML report template rendering | BSD-3-Clause |
+
+| Pytest | Automated testing | MIT |
+
+| Click | Command-line interface | BSD-3-Clause |
+
+| TOML | Configuration file parsing | Depends on the package used |
+
+| `http.server` | HTTP server for testing | Python standard library license |
+
+
+
 👩‍💻 Maintainer
 Disha Nakhawa
 ## 👩‍💻 Maintainer

@@ -3,6 +3,7 @@ RepoMedic AI is a repository-maintenance assistant designed to help developers i
 Instead of relying only on a quick glance at a codebase, RepoMedic AI gathers repository evidence and asks an AI model to explain potential risks and practical next steps. Its Streamlit interface brings the workflow into a simple dashboard.
 Built for developers who want clearer repository insights—with evidence, not guesswork.
 
+
 🚀 Key Features
 - 🔎 Repository analysis — inspect supported project files and dependency declarations.
 - 🧠 Local LLM-powered insights — generate analysis with Ollama and the gemma3:4b model.
@@ -115,3 +116,9 @@ Contributions, bug reports, and practical suggestions are welcome.
 RepoMedic AI's analysis depends on the files it collects and the quality of the model response. It may miss issues, misinterpret code, or recommend changes that are not appropriate for a particular project. Always validate recommendations before applying them.
 👩‍💻 Maintainer
 Disha Nakhawa
+## 👩‍💻 Maintainer
+
+**Disha Nakhawa**
+
+- **GitHub:** [dishanakhawa](https://github.com/dishanakhawa)
+- **Live App:** [RepoMedic AI](https://h26gnapikasreposhield-jfm5mczzjwzavrevcza48t.streamlit.app/)

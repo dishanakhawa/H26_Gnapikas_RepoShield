@@ -138,11 +138,7 @@ This project uses the following tools and libraries, each governed by its respec
       <td>Gemma Terms of Use</td>
       <td><a href="https://ai.google.dev/gemma/terms">View Terms ↗</a></td>
     </tr>
-    <tr>
-      <td>🎨 Jinja2</td>
-      <td>BSD-3-Clause</td>
-      <td><a href="https://github.com/pallets/jinja/blob/main/LICENSE.txt">View License ↗</a></td>
-    </tr>
+    
     <tr>
       <td>🧪 Pytest</td>
       <td>MIT License</td>

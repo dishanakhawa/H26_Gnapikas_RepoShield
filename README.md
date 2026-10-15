@@ -1,227 +1,117 @@
-<div align="center">
+✨ Overview
+RepoMedic AI is a repository-maintenance assistant designed to help developers inspect project files, understand dependency declarations, and produce an actionable maintenance report with the help of a locally running large language model.
+Instead of relying only on a quick glance at a codebase, RepoMedic AI gathers repository evidence and asks an AI model to explain potential risks and practical next steps. Its Streamlit interface brings the workflow into a simple dashboard.
+Built for developers who want clearer repository insights—with evidence, not guesswork.
 
-# 🔭 linkwatch
+🚀 Key Features
+- 🔎 Repository analysis — inspect supported project files and dependency declarations.
+- 🧠 Local LLM-powered insights — generate analysis with Ollama and the gemma3:4b model.
+- 📋 Structured maintenance report — organize findings, recommended actions, verification notes, and unresolved risks.
+- 🧪 Test runner — run the project's pytest suite from the dashboard.
+- 📄 Markdown report — save and review the generated Dependency Exit Capsule.
+- ⬇️ JSON export — download the report in a machine-readable JSON wrapper from the UI when that feature is enabled.
+- 🖥️ Streamlit dashboard — access analysis and project information from a single interface.
+🧭 How It Works
+Repository files
+      │
+      ▼
+Collect supported source and dependency evidence
+      │
+      ▼
+Build an analysis prompt using project instructions
+      │
+      ▼
+Ollama + Gemma 3 (gemma3:4b)
+      │
+      ▼
+Structured maintenance report
+      │
+      ├── View in Streamlit
+      ├── Save as Markdown
+      └── Export as JSON (through the UI)
+🛠️ Technology Stack
+Technology	Purpose
+Python	Core application and repository analysis
+Streamlit	Interactive web dashboard
+Ollama	Local model runtime
+Gemma 3 (gemma3:4b)	AI-generated repository analysis
+Git	Clone and version-control repositories
+pytest	Automated tests
 
-**Keep an eye on your websites from the terminal.**
 
-A small, friendly link & uptime checker: list your sites in one file, run one command,
-and get a live status table plus a clean HTML status page you can host anywhere.
-
-![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
-![Interface](https://img.shields.io/badge/interface-CLI-4B4B4B?logo=gnubash&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-ready-2496ED?logo=docker&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
-
-[Quick start](#-quick-start) •
-[Usage](#-usage) •
-[Configuration](#%EF%B8%8F-configuration) •
-[How it works](#-how-it-works) •
-[Tests](#-running-the-tests)
-
-</div>
-
----
-
-## ✨ Features
-
-- 📋 **One config file**: list every site you care about in `sites.toml`
-- ⚡ **Live terminal table**: watch results fill in as each site is checked
-- 🟢 **Clear status**: UP/DOWN, HTTP status code, response time and page title
-- 🕒 **Last-Modified tracking**: see when a page was last updated (when the server reports it)
-- 💾 **Cached results**: the last run is saved, so you can build reports any time
-- 🌐 **HTML status page**: one command turns your results into a shareable `status.html`
-- 🐳 **Docker ready**: run everything without touching your local Python
-
----
-
-## 🖥️ Preview
-
-```text
-$ python -m linkwatch.cli check
-                                    My sites
-┏━━━━━━━━━┳━━━━━━━━┳━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Site    ┃ Status ┃ Code ┃   Time ┃ Title                           ┃
-┡━━━━━━━━━╇━━━━━━━━╇━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Python  │ UP     │  200 │ 113 ms │ Welcome to Python.org           │
-│ PyPI    │ UP     │  200 │  59 ms │ PyPI · The Python Package Index │
-│ Example │ UP     │  200 │ 204 ms │ Example Domain                  │
-│ GitHub  │ UP     │  200 │ 236 ms │ GitHub                          │
-└─────────┴────────┴──────┴────────┴─────────────────────────────────┘
-4/4 sites up, results saved to ~/.cache/linkwatch/results.json
-```
-
----
-
-## 🚀 Quick start
-
-You only need **one** of the two options below.
-
-### Option A: Docker (no Python setup needed)
-
-```bash
-git clone https://github.com/rishrek/linkwatch.git
-cd linkwatch
-make docker-build
-docker run --rm -it linkwatch python -m linkwatch.cli check
-```
-
-### Option B: Local Python 3.12
-
-```bash
-git clone https://github.com/rishrek/linkwatch.git
-cd linkwatch
-make setup                    # creates .venv and installs everything (one time)
-source .venv/bin/activate     # do this in every new terminal
-python -m linkwatch.cli check
-```
-
-<details>
-<summary><b>On Windows, or without <code>make</code>?</b></summary>
-
-```powershell
-py -3.12 -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt -r requirements-dev.txt
-python -m linkwatch.cli check
-```
-
-If your Python 3.12 has a different name on macOS/Linux, pass it to make:
-`make setup PYTHON=/path/to/python3.12`
-
-</details>
-
----
-
-## 📖 Usage
-
-| Command | What it does |
-|---------|--------------|
-| `python -m linkwatch.cli check` | Checks every site, shows the live table and saves the results |
-| `python -m linkwatch.cli report` | Builds `status.html` from the last saved results |
-| `python -m linkwatch.cli info` | Shows where the templates and cached results live |
-| `python -m linkwatch.cli --help` | Lists all commands and options |
-
-### Options
-
-| Command | Option | Default | Description |
-|---------|--------|---------|-------------|
-| `check` | `--config PATH` | `sites.toml` | Use a different sites file |
-| `report` | `-o, --output PATH` | `status.html` | Where to write the HTML page |
-| `report` | `--title TEXT` | `linkwatch` | Heading shown on the status page |
-
-### A typical session
-
-```bash
-python -m linkwatch.cli check                     # 1. check your sites
-python -m linkwatch.cli report -o status.html     # 2. build the status page
-open status.html                                  # 3. view it (xdg-open on Linux)
-```
-
----
-
-## ⚙️ Configuration
-
-All sites live in **`sites.toml`** in the project folder:
-
-```toml
-title = "My sites"
-
-[[sites]]
-name = "Python"
-url = "https://www.python.org"
-
-[[sites]]
-name = "Example"
-url = "https://example.com"
-```
-
-| Key | Required | Description |
-|-----|----------|-------------|
-| `title` | no | Heading shown above the terminal table |
-| `[[sites]]` | yes | One block per site you want to check |
-| `name` | yes | Short label for the site |
-| `url` | yes | Full address, must start with `http://` or `https://` |
-
-To add a site, copy a `[[sites]]` block and change the name and URL.
-
-### Where results are stored
-
-| System | Location |
-|--------|----------|
-| macOS | `~/Library/Caches/linkwatch/results.json` |
-| Linux | `~/.cache/linkwatch/results.json` |
-| Windows | `%LOCALAPPDATA%\linkwatch\linkwatch\Cache\results.json` |
-
-Set the `LINKWATCH_CACHE_DIR` environment variable to keep results somewhere else.
-
----
-
-## 🧠 How it works
-
-```mermaid
-flowchart LR
-    A["sites.toml"] -->|"check"| B["Live table in terminal"]
-    A -->|"check"| C[("results.json cache")]
-    C -->|"report"| D["status.html"]
-```
-
-1. **Load**: `sites.toml` is read and validated (every site needs a name and a valid URL).
-2. **Check**: each site gets an HTTP GET request, and linkwatch records the status code, response time, page title and `Last-Modified` header.
-3. **Save**: results are written as JSON to your cache folder.
-4. **Report**: the saved results are rendered into a standalone HTML page with a summary of what's up and what's down.
-
-### Project structure
-
-```text
-linkwatch/
-├── linkwatch/
-│   ├── cli.py            # commands: check, report, info
-│   ├── config.py         # reads and validates sites.toml
-│   ├── checker.py        # visits each site and collects results
-│   ├── encoding.py       # page charset detection and title extraction
-│   ├── dates.py          # Last-Modified parsing
-│   ├── http_patch.py     # default request headers
-│   ├── cache.py          # saves and loads results.json
-│   ├── report.py         # builds the HTML status page
-│   ├── resources.py      # locates the bundled templates
-│   └── templates/
-│       └── status.html.j2
-├── tests/                # pytest suite with a tiny local test server
-├── sites.toml            # your list of sites
-├── requirements.txt      # app dependencies
-├── requirements-dev.txt  # test dependencies
-├── Dockerfile
-└── Makefile
-```
-
----
-
-## 🧪 Running the tests
-
-The tests start a tiny local web server, so they don't depend on real websites.
-
-```bash
-make test            # locally (activate .venv first)
-make docker-test     # inside Docker (run make docker-build first)
-```
-
-### Make targets
-
-| Target | Description |
-|--------|-------------|
-| `make setup` | Create `.venv` and install all dependencies |
-| `make test` | Run the pytest suite |
-| `make test-nose` | Run the suite with nose |
-| `make docker-build` | Build the Docker image |
-| `make docker-test` | Run the tests inside Docker |
-
----
-
-## 🤝 Contributing
-
-Ideas, bug reports and pull requests are welcome. Fork the repo, create a branch,
-and open a PR. Please run `make test` before submitting.
-
-## 📄 License
-
-Released under the [MIT License](LICENSE).
+📂 Project Structure
+RepoMedic-AI/
+├── app.py                         # Analysis workflow and Ollama integration
+├── ui.py                          # Streamlit dashboard
+├── skills/
+│   └── skill.md                   # Analysis instructions
+├── tests/                         # Automated tests
+├── demo_repo/                     # Sample repository for local testing
+├── artifacts/
+│   └── dependency_exit_capsule.md # Generated analysis report
+├── requirements.txt               # Python dependencies (if included)
+└── README.md
+Your local checkout may contain additional files or a slightly different structure.
+⚡ Getting Started
+Prerequisites
+Install or prepare the following:
+- Python 3.10 or newer (use a version supported by your dependencies)
+- Git
+- Ollama
+- The gemma3:4b model available in Ollama
+1. Clone the project
+git clone https://github.com/dishanakhawa/H26_Gnapikas_RepoShield.git
+cd H26_Gnapikas_RepoShield
+2. Create and activate a virtual environment
+Windows PowerShell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+3. Install dependencies
+If the project includes requirements.txt:
+python -m pip install -r requirements.txt
+If not, install the core UI and test packages:
+python -m pip install streamlit pytest
+4. Start Ollama and download the model
+ollama pull gemma3:4b
+Make sure Ollama is running locally. On systems where Ollama does not start automatically, launch the Ollama application or start its service before analysis.
+5. Launch RepoMedic AI
+python -m streamlit run ui.py
+Streamlit will print a local URL—usually http://localhost:8501. Open it in your browser.
+🧪 Run Tests
+From the project root, with your virtual environment activated:
+python -m pytest -v
+You can also use the dashboard's Run Tests action if available.
+📑 Reports & Exports
+RepoMedic AI can produce a Markdown report named:
+artifacts/dependency_exit_capsule.md
+The report is intended to separate repository observations from AI-generated recommendations and to record verification notes. Where available, the dashboard also provides a JSON download for downstream tools or archival.
+Important: AI-generated findings are suggestions, not proof of a vulnerability or a substitute for package-manager audits, security scanners, or running tests.
+🔐 Security & Responsible Use
+- Treat AI output as advisory and verify important findings against the actual files.
+- Do not upload secrets, access tokens, private keys, credentials, or sensitive source code to a public repository.
+- Review reports before committing them; they may contain paths or project details.
+- Analyze only repositories you are authorized to inspect.
+- Cloning a repository does not make its code trustworthy. Do not execute untrusted repository scripts as part of analysis.
+- For public deployments, add appropriate resource limits and network protections, and avoid exposing a local Ollama endpoint.
+🗺️ Roadmap
+Potential future improvements:
+- Dependency inventory and version comparison
+- Integration with dedicated vulnerability databases and security scanners
+- Report history and repository comparison
+- CI workflow integration
+- Additional report formats and configurable analysis rules
+Roadmap items are ideas, not claims that these features are already implemented.
+🤝 Contributing
+Contributions, bug reports, and practical suggestions are welcome.
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes and add or update tests.
+4. Run python -m pytest -v.
+5. Open a pull request describing the change.
+⚠️ Limitations
+RepoMedic AI's analysis depends on the files it collects and the quality of the model response. It may miss issues, misinterpret code, or recommend changes that are not appropriate for a particular project. Always validate recommendations before applying them.
+👩‍💻 Maintainer
+Disha Nakhawa

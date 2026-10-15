@@ -115,26 +115,58 @@ Contributions, bug reports, and practical suggestions are welcome.
 ⚠️ Limitations
 RepoMedic AI's analysis depends on the files it collects and the quality of the model response. It may miss issues, misinterpret code, or recommend changes that are not appropriate for a particular project. Always validate recommendations before applying them.
 
+## 📜 Open-Source Licenses
 
-## Open-Source Technologies and Licenses
+This project uses the following tools and libraries, each governed by its respective license or terms of use.
 
-| Technology / Library | Purpose | License |
+<table>
+  <thead>
+    <tr>
+      <th>🛠️ Technology</th>
+      <th>📄 License</th>
+      <th>🔗 License Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>🐍 Python</td>
+      <td>PSF License</td>
+      <td><a href="https://docs.python.org/3/license.html">View License ↗</a></td>
+    </tr>
+    <tr>
+      <td>🤖 Gemma 3:4b</td>
+      <td>Gemma Terms of Use</td>
+      <td><a href="https://ai.google.dev/gemma/terms">View Terms ↗</a></td>
+    </tr>
+    <tr>
+      <td>🎨 Jinja2</td>
+      <td>BSD-3-Clause</td>
+      <td><a href="https://github.com/pallets/jinja/blob/main/LICENSE.txt">View License ↗</a></td>
+    </tr>
+    <tr>
+      <td>🧪 Pytest</td>
+      <td>MIT License</td>
+      <td><a href="https://github.com/pytest-dev/pytest/blob/main/LICENSE">View License ↗</a></td>
+    </tr>
+    <tr>
+      <td>⌨️ Click</td>
+      <td>BSD-3-Clause</td>
+      <td><a href="https://github.com/pallets/click/blob/main/LICENSE.txt">View License ↗</a></td>
+    </tr>
+    <tr>
+      <td>⚙️ TOML</td>
+      <td>Package-dependent</td>
+      <td><a href="https://pypi.org/project/toml/">View Package ↗</a></td>
+    </tr>
+    <tr>
+      <td>🌐 http.server</td>
+      <td>Python standard-library license</td>
+      <td><a href="https://docs.python.org/3/license.html">View License ↗</a></td>
+    </tr>
+  </tbody>
+</table>
 
-| Python | Core programming language | PSF License |
-
-| Gemma 3:4b | AI-powered repository analysis | Gemma Terms of Use |
-
-| Jinja2 | HTML report template rendering | BSD-3-Clause |
-
-| Pytest | Automated testing | MIT |
-
-| Click | Command-line interface | BSD-3-Clause |
-
-| TOML | Configuration file parsing | Depends on the package used |
-
-| `http.server` | HTTP server for testing | Python standard library license |
-
-
+> **Note:** License details should be verified against the exact package versions used in this project. Gemma is governed by its own terms, rather than a standard MIT or Apache license.
 
 👩‍💻 Maintainer
 Disha Nakhawa
